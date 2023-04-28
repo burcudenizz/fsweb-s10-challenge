@@ -17,7 +17,7 @@ export const notEkleAPI = (yeniNot) => (dispatch) => {
     .then((res) => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notEkle ile dispatch edin
-        dispatch(notEkle(res.data));
+        dispatch(notEkle(res.data.json));
         console.log("not api'ya ulaştı", res.data.json);
       }
     })
@@ -31,7 +31,7 @@ export const notSilAPI = (id) => (dispatch) => {
     .then((res) => {
       if (res.status === 200) {
         // res.data objesi içerisinden ihtiyaç duyduğunuz değeri bulun ve oluşturduğunuz notSil ile dispatch edin
-        dispatch(notSil(res.data.json));
+        dispatch(notSil(res.data.data));
       }
     })
     .catch((error) => console.log(error));

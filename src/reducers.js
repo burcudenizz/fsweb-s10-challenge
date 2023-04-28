@@ -20,7 +20,7 @@ function localStorageStateOku(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-function baslangicNotlariniGetir(key) {
+export function baslangicNotlariniGetir(key) {
   const eskiNotlar = localStorage.getItem(key);
 
   if (eskiNotlar) {
@@ -30,15 +30,30 @@ function baslangicNotlariniGetir(key) {
   }
 }
 
-export function reducer(state = baslangicDegerleri, action) {
+export function reducer(
+  state = baslangicNotlariniGetir(s10chLocalStorageKey),
+  action
+) {
   switch (action.type) {
     case NOT_EKLE:
+      console.log("not eklendi");
       const updatedState = {
         ...state,
         notlar: [...state.notlar, action.payload],
       };
       localStorageStateYaz(s10chLocalStorageKey, updatedState);
       return updatedState;
+
+    case NOT_SIL:
+      console.log("not silindi");
+      const removedState = {
+        ...state,
+        notlar: [...state.notlar.filter((note) => note.id !== action.payload)],
+      };
+
+      localStorageStateYaz(s10chLocalStorageKey, removedState);
+      return removedState;
+
     default:
       return state;
   }
