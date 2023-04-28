@@ -6,6 +6,10 @@ import Gratitude from "./../assets/grForm.png";
 import { useDispatch } from "react-redux";
 import { notEkleAPI } from "../actions";
 import { baslangicNotlariniGetir } from "../reducers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const notify = () => toast("MİNNETİNİZ EKLENİYOR 🥰🥳🤩");
 
 export default function PostForm() {
   const {
@@ -29,11 +33,15 @@ export default function PostForm() {
         .filter((v) => v !== "")
         .join("|"),
     };
+
     dispatch(notEkleAPI(yeniNot));
+    notify();
+
+    setTimeout(() => history.push("/notlar"), 2000);
+
     // burada ilgili eylemi dispatch edin
     // toast mesajı gösterin
     // sonra aşağıdaki satırı aktifleştirin
-    setTimeout(() => history.push("/notlar"), 2000);
   }
 
   const inputCx = "border border-zinc-300 h-9 rounded-none text-sm px-2 w-full";
@@ -86,6 +94,19 @@ export default function PostForm() {
         <button type="submit" className="myButton">
           Ekle
         </button>
+        <ToastContainer
+          position="top-right"
+          autoClose={4998}
+          limit={1}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </form>
     </div>
   );

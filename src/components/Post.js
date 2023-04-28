@@ -3,6 +3,10 @@ import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import { useDispatch } from "react-redux";
 import { notSilAPI } from "../actions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const notify = () => toast("MİNNETİNİZ SİLİNİYOR 🥺🥺🥺 ");
 
 export default function Post({ item }) {
   const dispatch = useDispatch();
@@ -11,6 +15,7 @@ export default function Post({ item }) {
     // burada ilgili eylemi dispatch edin
     // sonra toast mesajı gösterin
     dispatch(notSilAPI(item.id));
+    notify();
   }
 
   return (
@@ -34,6 +39,19 @@ export default function Post({ item }) {
       >
         Bu notu sil
       </button>
+      <ToastContainer
+        position="top-right"
+        autoClose={4998}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
