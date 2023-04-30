@@ -1,4 +1,4 @@
-import { NOT_EKLE, NOT_SIL } from "./actions";
+import { NOT_EKLE, NOT_SIL, TUMUNU_SIL } from "./actions";
 
 const s10chLocalStorageKey = "s10ch";
 
@@ -39,7 +39,7 @@ export function reducer(
       console.log("not eklendi");
       const updatedState = {
         ...state,
-        notlar: [...state.notlar, action.payload],
+        notlar: [action.payload, ...state.notlar],
       };
       localStorageStateYaz(s10chLocalStorageKey, updatedState);
       return updatedState;
@@ -54,6 +54,14 @@ export function reducer(
       localStorageStateYaz(s10chLocalStorageKey, removedState);
       return removedState;
 
+    case TUMUNU_SIL:
+      console.log("notlarım tamamı silindi");
+      const removedAllState = {
+        ...state,
+        notlar: [],
+      };
+      localStorageStateYaz(s10chLocalStorageKey, removedAllState);
+      return removedAllState;
     default:
       return state;
   }
